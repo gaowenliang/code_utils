@@ -58,18 +58,25 @@ cv::LinearPnP::readPointsPlanar( const std::vector< Eigen::Vector3d >& pts_2,
                                  const std::vector< Eigen::Vector3d >& pts_3 )
 {
     int index_max = pts_3.size( );
-
+    //        std::cout << " size " << index_max << std::endl;
     M.resize( 2 * index_max, 9 );
+
+    //    Eigen::MatrixXd M_tmp( 2 * index_max, 9 );
+
+    //    M.setZero( );
+
+    int max_i;
+    Eigen::MatrixXd mat_tmp( 2, 9 );
 
     for ( int index = 0; index < index_max; index++ )
     {
-        // std::cout << pts_3.at( index ).x << " " << pts_3.at( index ).y << " "
-        //           << pts_3.at( index ).z << std::endl;
-        // std::cout << pts_2.at( index ).x << " " << pts_2.at( index ).y << " "
-        //           << pts_2.at( index ).z << std::endl;
-        Eigen::MatrixXd mat_tmp( 2, 9 );
-        int max_i
-        = math_utils::max_index_in_three( pts_2[index].x( ), pts_2[index].y( ), pts_2[index].z( ) );
+        //        std::cout << pts_3.at( index ).x( ) << " " << pts_3.at( index ).y( ) << " "
+        //                  << pts_3.at( index ).z( ) << std::endl;
+        //        std::cout << pts_2.at( index ).x( ) << " " << pts_2.at( index ).y( ) << " "
+        //                  << pts_2.at( index ).z( ) << std::endl;
+
+        max_i = math_utils::max_index_in_three( pts_2[index].x( ), pts_2[index].y( ), pts_2[index].z( ) );
+        max_i = 2;
         switch ( max_i )
         {
             case 0:
@@ -112,7 +119,9 @@ cv::LinearPnP::readPointsPlanar( const std::vector< Eigen::Vector3d >& pts_2,
                 -pts_2[index].y( ) / pts_2[index].z( );
                 break;
         }
+        //        std::cout << " mat_tmp " << std::endl << mat_tmp << std::endl;
 
         M.block< 2, 9 >( 2 * index, 0 ) = mat_tmp;
     }
+    //    std::cout << " M " << std::endl << M << std::endl;
 }

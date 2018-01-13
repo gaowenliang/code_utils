@@ -2,6 +2,7 @@
 #define LINEARPNP_H
 
 #include "utils.h"
+#include <eigen3/Eigen/Core>
 #include <eigen3/Eigen/Eigen>
 #include <eigen3/Eigen/SVD>
 #include <iostream>
@@ -13,6 +14,7 @@ class LinearPnP
 {
     public:
     LinearPnP( const std::vector< Eigen::Vector3d >& pts_2, const std::vector< Eigen::Vector3d >& pts_3 );
+    //    ~LinearPnP( ) {}
 
     public:
     Eigen::Matrix3d getR( ) const { return R; }

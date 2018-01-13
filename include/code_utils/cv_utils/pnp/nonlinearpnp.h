@@ -60,6 +60,7 @@ class NonlinearPnP
                   const Eigen::Vector3d& _T_initial,
                   const std::vector< Eigen::Vector3d >& image_point,
                   const std::vector< Eigen::Vector3d >& scene_point );
+    ~NonlinearPnP( ) {}
 
     bool getRT( Eigen::Vector3d& T_out, Eigen::Quaterniond& q_out );
 
