@@ -1,9 +1,10 @@
 #ifndef SYS_UTILS_H
 #define SYS_UTILS_H
 
+#include <cmath>
+#include <cstdlib>
 #include <iostream>
 #include <time.h>
-
 namespace sys_utils
 {
 

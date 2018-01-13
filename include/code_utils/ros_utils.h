@@ -26,7 +26,12 @@ sendDepthImage( ros::Publisher& pub, const ros::Time timeStamp, const std::strin
 }
 
 inline void
-sendCloud( ros::Publisher& pub, const ros::Time timestamp, const cv::Mat& dense_points_, const cv::Mat& un_img_l0, Eigen::Matrix3f K1, Eigen::Matrix3f R_wc )
+sendCloud( ros::Publisher& pub,
+           const ros::Time timestamp,
+           const cv::Mat& dense_points_,
+           const cv::Mat& un_img_l0,
+           Eigen::Matrix3f K1,
+           Eigen::Matrix3f R_wc )
 {
 #define DOWNSAMPLE 0
     const float DEP_INF = 1000.0f;

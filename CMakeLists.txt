@@ -13,22 +13,31 @@ find_package(catkin REQUIRED
 #set(EIGEN_INCLUDE_DIR "/usr/local/include/eigen3")
 find_package(Eigen3 REQUIRED)
 find_package(OpenCV REQUIRED)
+find_package(Ceres REQUIRED)
 
 catkin_package(
     INCLUDE_DIRS include
-    LIBRARIES polynomial cv_utils
+    LIBRARIES polynomial cv_utils pnp
     CATKIN_DEPENDS roscpp std_msgs
-    DEPENDS system_lib
+#    DEPENDS system_lib
     )
 
 include_directories(
     ${catkin_INCLUDE_DIRS}
+    ${EIGEN3_INCLUDE_DIR}
      )
 include_directories("include")
 
 add_library(polynomial STATIC
     src/math_utils/Polynomial.cpp)
 target_link_libraries(polynomial ${Boost_LIBRARIES} )
+
+add_library(pnp
+    src/cv_utils/pnp/pnp.cpp
+    src/cv_utils/pnp/linearpnp.cpp
+    src/cv_utils/pnp/nonlinearpnp.cpp)
+target_link_libraries(pnp ${Boost_LIBRARIES}  ${OpenCV_LIBS}  ${CERES_LIBRARIES})
+
 
 add_executable(poly_test
     src/poly_test.cpp
@@ -38,4 +47,4 @@ target_link_libraries(poly_test ${Boost_LIBRARIES} )
 add_library(cv_utils STATIC
     src/cv_utils.cc
     )
-target_link_libraries(cv_utils ${Boost_LIBRARIES} )
+target_link_libraries(cv_utils ${Boost_LIBRARIES}  ${OpenCV_LIBS} )
