@@ -3,6 +3,60 @@
 cv::LinearPnP::LinearPnP( const std::vector< Eigen::Vector3d >& pts_2,
                           const std::vector< Eigen::Vector3d >& pts_3 )
 {
+    readPointsPlanar( pts_2, pts_3 );
+
+    solvePnP( );
+}
+
+void
+cv::LinearPnP::solvePnP( )
+{
+    //    std::cout << "Here is the matrix m:" << std::endl << M << std::endl;
+    Eigen::JacobiSVD< Eigen::MatrixXd > svd( M, Eigen::ComputeThinV );
+    //    std::cout << "Its singular values are:" << std::endl << svd.singularValues( ) <<
+    //    std::endl;
+    //    std::cout << "svd.matrixV( )" << std::endl << svd.matrixV( ) << std::endl;
+
+    // the last column of matrixV
+    Eigen::Matrix3d hat_H;
+
+    hat_H.block< 1, 3 >( 0, 0 ) = svd.matrixV( ).block< 3, 1 >( 0, 8 ).transpose( );
+    hat_H.block< 1, 3 >( 1, 0 ) = svd.matrixV( ).block< 3, 1 >( 3, 8 ).transpose( );
+    hat_H.block< 1, 3 >( 2, 0 ) = svd.matrixV( ).block< 3, 1 >( 6, 8 ).transpose( );
+
+    std::cout << hat_H << std::endl;
+
+    Eigen::Matrix3d RRT = hat_H;
+
+    T( 0 ) = RRT.coeff( 0, 2 );
+    T( 1 ) = RRT.coeff( 1, 2 );
+    T( 2 ) = RRT.coeff( 2, 2 );
+
+    Eigen::Vector3d h1 = RRT.block< 3, 1 >( 0, 0 );
+    Eigen::Vector3d h2 = RRT.block< 3, 1 >( 0, 1 );
+    Eigen::Vector3d h3 = h1.cross( h2 );
+
+    if ( RRT.determinant( ) < 0 )
+    {
+        h1 = -h1;
+        h2 = -h2;
+        T  = -T;
+    }
+
+    Eigen::Matrix3d hat_H_2;
+    hat_H_2 << h1, h2, h3;
+
+    Eigen::JacobiSVD< Eigen::MatrixXd > svd2( hat_H_2, Eigen::ComputeThinU | Eigen::ComputeThinV );
+
+    R = svd2.matrixU( ) * svd2.matrixV( ).transpose( );
+    //    std::cout << "R " << std::endl << R << std::endl;
+    T = T / ( h1.norm( ) );
+}
+
+void
+cv::LinearPnP::readPointsPlanar( const std::vector< Eigen::Vector3d >& pts_2,
+                                 const std::vector< Eigen::Vector3d >& pts_3 )
+{
     int index_max = pts_3.size( );
 
     M.resize( 2 * index_max, 9 );
@@ -61,48 +115,4 @@ cv::LinearPnP::LinearPnP( const std::vector< Eigen::Vector3d >& pts_2,
 
         M.block< 2, 9 >( 2 * index, 0 ) = mat_tmp;
     }
-
-    solvePnP( );
-}
-
-void
-cv::LinearPnP::solvePnP( )
-{
-    //    std::cout << "Here is the matrix m:" << std::endl << M << std::endl;
-    Eigen::JacobiSVD< Eigen::MatrixXd > svd( M, Eigen::ComputeThinV );
-    //    std::cout << "Its singular values are:" << std::endl << svd.singularValues( ) <<
-    //    std::endl;
-
-    // the last column of matrixV
-    Eigen::Matrix3d hat_H;
-    hat_H.block< 1, 3 >( 0, 0 ) = svd.matrixV( ).block< 3, 1 >( 0, 8 ).transpose( );
-    hat_H.block< 1, 3 >( 1, 0 ) = svd.matrixV( ).block< 3, 1 >( 3, 8 ).transpose( );
-    hat_H.block< 1, 3 >( 2, 0 ) = svd.matrixV( ).block< 3, 1 >( 6, 8 ).transpose( );
-    //    std::cout << hat_H << std::endl;
-
-    Eigen::Matrix3d RRT = hat_H;
-
-    T( 0 ) = RRT.coeff( 0, 2 );
-    T( 1 ) = RRT.coeff( 1, 2 );
-    T( 2 ) = RRT.coeff( 2, 2 );
-    std::cout << "T " << T.transpose( ) << std::endl;
-
-    Eigen::Vector3d h1 = RRT.block< 3, 1 >( 0, 0 );
-    Eigen::Vector3d h2 = RRT.block< 3, 1 >( 0, 1 );
-    Eigen::Vector3d h3 = h1.cross( h2 );
-
-    if ( T( 2 ) < 0 )
-    {
-        h1 = -h1;
-        h2 = -h2;
-        T  = -T;
-    }
-
-    Eigen::Matrix3d hat_H_2;
-    hat_H_2 << h1, h2, h3;
-    Eigen::JacobiSVD< Eigen::MatrixXd > svd2( hat_H_2, Eigen::ComputeThinU | Eigen::ComputeThinV );
-
-    R = svd2.matrixU( ) * svd2.matrixV( ).transpose( );
-    std::cout << "R " << std::endl << R << std::endl;
-    T = T / ( h1.norm( ) );
 }

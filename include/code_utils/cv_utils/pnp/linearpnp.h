@@ -19,6 +19,8 @@ class LinearPnP
     Eigen::Vector3d getT( ) const { return T; }
 
     private:
+    void readPointsPlanar( const std::vector< Eigen::Vector3d >& pts_2,
+                           const std::vector< Eigen::Vector3d >& pts_3 );
     void solvePnP( );
 
     private:
