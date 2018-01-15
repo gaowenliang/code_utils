@@ -1,6 +1,7 @@
 #ifndef INITPNP_H
 #define INITPNP_H
 
+#include "../dlt/dlt.h"
 #include "linearpnp.h"
 #include "nonlinearpnp.h"
 

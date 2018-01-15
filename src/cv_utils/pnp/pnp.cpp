@@ -7,9 +7,10 @@ cv::Pnp::Pnp( const std::vector< Eigen::Vector3d >& image_point,
 {
 
     //      cv::LinearPnP* lpnp = new cv::LinearPnP( image_point, scene_point );
-    cv::LinearPnP llpnp( image_point, scene_point );
+    //    cv::LinearPnP llpnp( image_point, scene_point );
+    cv::DLT llpnp( image_point, scene_point );
 
-    //    std::cout << "P_2 " << std::endl << llpnp.getT( ).transpose( ) << std::endl;
+    std::cout << "P_2 " << std::endl << llpnp.getT( ).transpose( ) << std::endl;
 
     cv::NonlinearPnP nlpnp( llpnp.getR( ), llpnp.getT( ), image_point, scene_point );
     nlpnp.getRT( T_dst, q_dst );

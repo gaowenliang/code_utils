@@ -33,18 +33,19 @@ add_library(polynomial STATIC
 target_link_libraries(polynomial ${Boost_LIBRARIES} )
 
 add_library(pnp
+    src/cv_utils/dlt/dlt.cpp
     src/cv_utils/pnp/pnp.cpp
     src/cv_utils/pnp/linearpnp.cpp
     src/cv_utils/pnp/nonlinearpnp.cpp)
 target_link_libraries(pnp ${Boost_LIBRARIES}  ${OpenCV_LIBS}  ${CERES_LIBRARIES})
 
-
-add_executable(poly_test
-    src/poly_test.cpp
-    src/math_utils/Polynomial.cpp)
-target_link_libraries(poly_test ${Boost_LIBRARIES} )
-
 add_library(cv_utils STATIC
     src/cv_utils.cc
     )
 target_link_libraries(cv_utils ${Boost_LIBRARIES}  ${OpenCV_LIBS} )
+
+add_executable(dlt_test
+    src/cv_utils/dlt/dlt.cpp
+    src/cv_utils/dlt_test.cpp)
+target_link_libraries(dlt_test dw ${Boost_LIBRARIES} ${OpenCV_LIBS} )
+
