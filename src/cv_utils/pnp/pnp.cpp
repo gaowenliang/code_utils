@@ -6,13 +6,46 @@ cv::Pnp::Pnp( const std::vector< Eigen::Vector3d >& image_point,
               Eigen::Vector3d& T_dst )
 {
 
-    //      cv::LinearPnP* lpnp = new cv::LinearPnP( image_point, scene_point );
-    //    cv::LinearPnP llpnp( image_point, scene_point );
-    cv::DLT llpnp( image_point, scene_point );
+    bool is_planar = false;
+    if ( scene_point.size( ) < 4 )
+    {
+        is_planar = true;
+    }
+    else
+    {
+        int size = scene_point.size( );
+        Eigen::MatrixXd scene_points( size, 3 );
+        for ( int index = 0; index < size; ++index )
+        {
+            scene_points( index, 0 ) = scene_point[index]( 0 );
+            scene_points( index, 1 ) = scene_point[index]( 1 );
+            scene_points( index, 2 ) = scene_point[index]( 2 );
+        }
+        Eigen::JacobiSVD< Eigen::MatrixXd > svd( scene_points, Eigen::EigenvaluesOnly );
+        if ( svd.singularValues( )( 2 ) / svd.singularValues( )( 1 ) < 1e-3 )
+            is_planar = true;
+        else
+            is_planar = false;
+    }
 
-    std::cout << "P_2 " << std::endl << llpnp.getT( ).transpose( ) << std::endl;
+    Eigen::Matrix3d R_cw;
+    Eigen::Vector3d t_cw;
+    if ( is_planar )
+    {
+        cv::LinearPnP llpnp( image_point, scene_point );
+        R_cw = llpnp.getR( );
+        t_cw = llpnp.getT( );
+    }
+    else
+    {
+        cv::DLT llpnp( image_point, scene_point );
+        R_cw = llpnp.getR( );
+        t_cw = llpnp.getT( );
+    }
 
-    cv::NonlinearPnP nlpnp( llpnp.getR( ), llpnp.getT( ), image_point, scene_point );
+    std::cout << "P_2 " << std::endl << t_cw.transpose( ) << std::endl;
+
+    cv::NonlinearPnP nlpnp( R_cw, t_cw, image_point, scene_point );
     nlpnp.getRT( T_dst, q_dst );
 }
 

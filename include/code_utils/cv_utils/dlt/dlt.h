@@ -17,6 +17,7 @@ class DLT
     public:
     Eigen::Matrix3d getR( ) const { return R; }
     Eigen::Vector3d getT( ) const { return T; }
+    bool solved( ) const { return m_solve_ok; }
 
     private:
     void readPointsPlanar( const std::vector< Eigen::Vector3d >& pts_2,
@@ -25,11 +26,13 @@ class DLT
 
     private:
     Eigen::Matrix3d R;
+    Eigen::Matrix3d RR;
     Eigen::Vector3d T;
 
     Eigen::MatrixXd M;
     Eigen::MatrixXd mat_tmp;
     int m_num_points;
+    bool m_solve_ok;
 
     public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
