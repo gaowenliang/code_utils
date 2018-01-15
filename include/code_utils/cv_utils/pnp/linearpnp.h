@@ -30,6 +30,10 @@ class LinearPnP
     Eigen::Vector3d T;
 
     Eigen::MatrixXd M;
+    Eigen::MatrixXd mat_tmp;
+
+    public:
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 }
 

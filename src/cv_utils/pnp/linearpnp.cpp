@@ -3,6 +3,8 @@
 cv::LinearPnP::LinearPnP( const std::vector< Eigen::Vector3d >& pts_2,
                           const std::vector< Eigen::Vector3d >& pts_3 )
 {
+    mat_tmp.resize( 2, 9 );
+
     readPointsPlanar( pts_2, pts_3 );
 
     solvePnP( );
@@ -60,13 +62,9 @@ cv::LinearPnP::readPointsPlanar( const std::vector< Eigen::Vector3d >& pts_2,
     int index_max = pts_3.size( );
     //        std::cout << " size " << index_max << std::endl;
     M.resize( 2 * index_max, 9 );
-
-    //    Eigen::MatrixXd M_tmp( 2 * index_max, 9 );
-
     //    M.setZero( );
 
     int max_i;
-    Eigen::MatrixXd mat_tmp( 2, 9 );
 
     for ( int index = 0; index < index_max; index++ )
     {

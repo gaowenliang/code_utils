@@ -53,6 +53,9 @@ class NonlinearPnP
         Eigen::Vector3d image_point_; // 2D to 3D point on image
         Eigen::Vector3d scene_point_; // 3D corresponding point
         Eigen::Matrix< double, 2, 3 > tangent_base;
+
+        public:
+        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     };
 
     public:
