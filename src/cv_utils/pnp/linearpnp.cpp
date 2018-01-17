@@ -1,7 +1,7 @@
 #include <code_utils/cv_utils/pnp/linearpnp.h>
 
-cv::LinearPnP::LinearPnP( const std::vector< Eigen::Vector3d >& pts_2,
-                          const std::vector< Eigen::Vector3d >& pts_3 )
+cv::Homography::Homography( const std::vector< Eigen::Vector3d >& pts_2,
+                            const std::vector< Eigen::Vector3d >& pts_3 )
 {
     mat_tmp.resize( 2, 9 );
 
@@ -11,7 +11,7 @@ cv::LinearPnP::LinearPnP( const std::vector< Eigen::Vector3d >& pts_2,
 }
 
 void
-cv::LinearPnP::solvePnP( )
+cv::Homography::solvePnP( )
 {
     //    std::cout << "Here is the matrix m:" << std::endl << M << std::endl;
     Eigen::JacobiSVD< Eigen::MatrixXd > svd( M, Eigen::ComputeThinV );
@@ -56,8 +56,8 @@ cv::LinearPnP::solvePnP( )
 }
 
 void
-cv::LinearPnP::readPointsPlanar( const std::vector< Eigen::Vector3d >& pts_2,
-                                 const std::vector< Eigen::Vector3d >& pts_3 )
+cv::Homography::readPointsPlanar( const std::vector< Eigen::Vector3d >& pts_2,
+                                  const std::vector< Eigen::Vector3d >& pts_3 )
 {
     int index_max = pts_3.size( );
     //        std::cout << " size " << index_max << std::endl;

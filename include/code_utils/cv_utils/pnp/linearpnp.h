@@ -1,5 +1,5 @@
-#ifndef LINEARPNP_H
-#define LINEARPNP_H
+#ifndef Homography_H
+#define Homography_H
 
 #include "utils.h"
 #include <eigen3/Eigen/Core>
@@ -10,11 +10,11 @@
 
 namespace cv
 {
-class LinearPnP
+class Homography
 {
     public:
-    LinearPnP( const std::vector< Eigen::Vector3d >& pts_2, const std::vector< Eigen::Vector3d >& pts_3 );
-    //    ~LinearPnP( ) {}
+    Homography( const std::vector< Eigen::Vector3d >& pts_2, const std::vector< Eigen::Vector3d >& pts_3 );
+    //    ~Homography( ) {}
 
     public:
     Eigen::Matrix3d getR( ) const { return R; }
@@ -37,4 +37,4 @@ class LinearPnP
 };
 }
 
-#endif // LINEARPNP_H
+#endif // Homography_H

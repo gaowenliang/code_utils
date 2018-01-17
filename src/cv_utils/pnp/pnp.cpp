@@ -7,7 +7,7 @@ cv::Pnp::Pnp( const std::vector< Eigen::Vector3d >& image_point,
 {
 
     bool is_planar = false;
-    if ( scene_point.size( ) < 4 )
+    if ( scene_point.size( ) < 6 )
     {
         is_planar = true;
     }
@@ -32,7 +32,7 @@ cv::Pnp::Pnp( const std::vector< Eigen::Vector3d >& image_point,
     Eigen::Vector3d t_cw;
     if ( is_planar )
     {
-        cv::LinearPnP llpnp( image_point, scene_point );
+        cv::Homography llpnp( image_point, scene_point );
         R_cw = llpnp.getR( );
         t_cw = llpnp.getT( );
     }
@@ -43,7 +43,7 @@ cv::Pnp::Pnp( const std::vector< Eigen::Vector3d >& image_point,
         t_cw = llpnp.getT( );
     }
 
-    std::cout << "P_2 " << std::endl << t_cw.transpose( ) << std::endl;
+    //    std::cout << "P_2 " << std::endl << t_cw.transpose( ) << std::endl;
 
     cv::NonlinearPnP nlpnp( R_cw, t_cw, image_point, scene_point );
     nlpnp.getRT( T_dst, q_dst );

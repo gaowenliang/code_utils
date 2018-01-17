@@ -44,8 +44,3 @@ add_library(cv_utils STATIC
     )
 target_link_libraries(cv_utils ${Boost_LIBRARIES}  ${OpenCV_LIBS} )
 
-add_executable(dlt_test
-    src/cv_utils/dlt/dlt.cpp
-    src/cv_utils/dlt_test.cpp)
-target_link_libraries(dlt_test dw ${Boost_LIBRARIES} ${OpenCV_LIBS} )
-
