@@ -7,10 +7,10 @@ cv_utils::fisheye::PreProcess::PreProcess( const cv::Size _raw_image_size,
 : is_preprocess( false )
 {
     /* clang-format off */
-    if (    _raw_image_size.width > _roi_size.width
-         && _raw_image_size.height > _roi_size.height
-         && _center.x < _raw_image_size.width
-         && _center.y < _raw_image_size.height
+    if (    _raw_image_size.width >= _roi_size.width
+         && _raw_image_size.height >= _roi_size.height
+         && _center.x <= _raw_image_size.width
+         && _center.y <= _raw_image_size.height
          && _roi_size.width != 0
          && _roi_size.height != 0 )
       is_preprocess = true;
