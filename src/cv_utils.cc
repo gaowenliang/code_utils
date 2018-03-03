@@ -60,3 +60,30 @@ cv_utils::fisheye::PreProcess::do_preprocess( cv::Mat image_input )
         return image_input;
     }
 }
+
+cv::Point2f
+cv_utils::fisheye::PreProcess::preprocessPoint( const cv::Point2f& pt_in )
+{
+    if ( is_preprocess )
+    {
+        cv::Point2f pt( -1, -1 );
+
+        if ( !pt_in.inside( cv::Rect( roi_col_start, //
+                                      roi_row_start,
+                                      roi_col_end - roi_col_start,
+                                      roi_row_end - roi_row_start ) ) )
+        {
+            return pt;
+        }
+        else
+        {
+            pt = cv::Point2f( ( pt_in.x - roi_col_start ) * resize_scale,
+                              ( pt_in.y - roi_row_start ) * resize_scale );
+            return pt;
+        }
+    }
+    else
+    {
+        return pt_in;
+    }
+}

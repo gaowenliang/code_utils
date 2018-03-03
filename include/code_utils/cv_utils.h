@@ -11,10 +11,14 @@ class PreProcess
 {
     public:
     PreProcess( );
-    PreProcess( const cv::Size _raw_image_size, const cv::Size _roi_size, const cv::Point _center, const float _resize_scale );
+    PreProcess( const cv::Size _raw_image_size,
+                const cv::Size _roi_size,
+                const cv::Point _center,
+                const float _resize_scale );
     void resetPreProcess( cv::Size _roi_size, cv::Point _center, float _resize_scale );
 
     cv::Mat do_preprocess( cv::Mat image_input );
+    cv::Point2f preprocessPoint( const cv::Point2f& pt_in );
 
     float resize_scale;
     int roi_row_start;
