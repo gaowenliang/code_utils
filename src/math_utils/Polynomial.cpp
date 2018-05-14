@@ -1,5 +1,4 @@
 #include <code_utils/math_utils/Polynomial.h>
-#include <code_utils/sys_utils.h>
 #include <iostream>
 
 using namespace math_utils;
