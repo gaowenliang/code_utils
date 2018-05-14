@@ -44,3 +44,5 @@ add_library(cv_utils STATIC
     )
 target_link_libraries(cv_utils ${Boost_LIBRARIES}  ${OpenCV_LIBS} )
 
+add_executable(matIO_test   src/mat_io_test.cpp )
+target_link_libraries(matIO_test dw ${OpenCV_LIBS})
