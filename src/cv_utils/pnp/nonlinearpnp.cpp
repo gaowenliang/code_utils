@@ -23,7 +23,7 @@ cv::NonlinearPnP::NonlinearPnP( const Eigen::Matrix3d& _R_initial,
     for ( int i = 0; i < point_num; ++i )
     {
 
-        //        ProjectionFactor* f = new ProjectionFactor( image_point[i], scene_point[i] );
+        // ProjectionFactor* f = new ProjectionFactor( image_point[i], scene_point[i] );
 
         ceres::CostFunction* f = new ceres::AutoDiffCostFunction< ReprojectionError, 2, 7 >(
         new ReprojectionError( image_point[i], scene_point[i] ) );
@@ -75,8 +75,10 @@ cv::NonlinearPnP::ReprojectionError::ReprojectionError( const Eigen::Vector3d& i
     Eigen::Vector3d a = scene_point_.normalized( );
     if ( a == tmp )
         tmp << 1, 0, 0;
+
     b1 = ( tmp - a * ( a.transpose( ) * tmp ) ).normalized( );
     b2 = a.cross( b1 );
+
     tangent_base.block< 1, 3 >( 0, 0 ) = b1.transpose( );
     tangent_base.block< 1, 3 >( 1, 0 ) = b2.transpose( );
 }

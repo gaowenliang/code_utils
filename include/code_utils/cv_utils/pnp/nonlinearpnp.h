@@ -58,13 +58,14 @@ class NonlinearPnP
             T r_z = p_c( 2 ) - T( image_point_( 2 ) );
 
             // clang-format off
-            residuals[0] = T( tangent_base( 0, 0 ) ) * r_x
-                         + T( tangent_base( 0, 1 ) ) * r_y
-                         + T( tangent_base( 0, 2 ) ) * r_z;
-            residuals[1] = T( tangent_base( 1, 0 ) ) * r_x
-                         + T( tangent_base( 1, 1 ) ) * r_y
-                         + T( tangent_base( 1, 2 ) ) * r_z;
+             residuals[0] = T( tangent_base( 0, 0 ) ) * r_x
+                          + T( tangent_base( 0, 1 ) ) * r_y
+                          + T( tangent_base( 0, 2 ) ) * r_z;
+             residuals[1] = T( tangent_base( 1, 0 ) ) * r_x
+                          + T( tangent_base( 1, 1 ) ) * r_y
+                          + T( tangent_base( 1, 2 ) ) * r_z;
             // clang-format on
+
             return true;
         }
 

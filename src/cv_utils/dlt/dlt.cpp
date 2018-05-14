@@ -116,7 +116,8 @@ cv::DLT::solveDLT( )
     //        std::cout << " M " << std::endl << M << std::endl;
 
     Eigen::JacobiSVD< Eigen::MatrixXd > svd( M, Eigen::ComputeThinV );
-    //    std::cout << " singularValues " << std::endl << svd.singularValues( ) << std::endl;
+    //    std::cout << " singularValues " << std::endl << svd.singularValues( ) <<
+    //    std::endl;
 
     Eigen::MatrixXd h = svd.matrixV( ).block< 12, 1 >( 0, 11 ).transpose( );
 

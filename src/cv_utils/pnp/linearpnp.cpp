@@ -60,7 +60,7 @@ cv::Homography::readPointsPlanar( const std::vector< Eigen::Vector3d >& pts_2,
                                   const std::vector< Eigen::Vector3d >& pts_3 )
 {
     int index_max = pts_3.size( );
-    //        std::cout << " size " << index_max << std::endl;
+    //    std::cout << " size " << index_max << std::endl;
     M.resize( 2 * index_max, 9 );
     //    M.setZero( );
 
@@ -68,23 +68,26 @@ cv::Homography::readPointsPlanar( const std::vector< Eigen::Vector3d >& pts_2,
 
     for ( int index = 0; index < index_max; index++ )
     {
-        //        std::cout << pts_3.at( index ).x( ) << " " << pts_3.at( index ).y( ) << " "
-        //                  << pts_3.at( index ).z( ) << std::endl;
-        //        std::cout << pts_2.at( index ).x( ) << " " << pts_2.at( index ).y( ) << " "
-        //                  << pts_2.at( index ).z( ) << std::endl;
+        // std::cout << pts_3.at( index ).x( ) << " " << pts_3.at( index ).y( ) << " "
+        //          << pts_3.at( index ).z( ) << std::endl;
+        // std::cout << pts_2.at( index ).x( ) << " " << pts_2.at( index ).y( ) << " "
+        //          << pts_2.at( index ).z( ) << std::endl;
 
-        max_i = math_utils::max_index_in_three( pts_2[index].x( ), pts_2[index].y( ), pts_2[index].z( ) );
-        max_i = 2;
+        max_i = math_utils::max_index_in_three( pts_2[index].x( ), //
+                                                pts_2[index].y( ),
+                                                pts_2[index].z( ) );
+
         switch ( max_i )
         {
             case 0:
                 //                std::cout << " x " << std::endl;
                 mat_tmp << -pts_3[index].x( ) * pts_2[index].y( ) / pts_2[index].x( ),
                 -pts_3[index].y( ) * pts_2[index].y( ) / pts_2[index].x( ),
-                -pts_2[index].y( ) / pts_2[index].x( ), pts_3[index].x( ), pts_3[index].y( ), 1,
-                0, 0, 0, -pts_3[index].x( ) * pts_2[index].z( ) / pts_2[index].x( ),
+                -pts_2[index].y( ) / pts_2[index].x( ), pts_3[index].x( ), pts_3[index].y( ),
+                1, 0, 0, 0, -pts_3[index].x( ) * pts_2[index].z( ) / pts_2[index].x( ),
                 -pts_3[index].y( ) * pts_2[index].z( ) / pts_2[index].x( ),
-                -pts_2[index].z( ) / pts_2[index].x( ), 0, 0, 0, pts_3[index].x( ), pts_3[index].y( ), 1;
+                -pts_2[index].z( ) / pts_2[index].x( ), 0, 0, 0, pts_3[index].x( ),
+                pts_3[index].y( ), 1;
                 break;
             case 1:
                 //                std::cout << " y " << std::endl;
