@@ -6,6 +6,8 @@
 namespace cv
 {
 
+#define CV_8UC12 CV_MAKETYPE( CV_8U, 12 )
+
 #define CV_8SC12 CV_MAKETYPE( CV_8S, 12 )
 #define CV_8SC16 CV_MAKETYPE( CV_8S, 16 )
 #define CV_8SC24 CV_MAKETYPE( CV_8S, 24 )
@@ -15,6 +17,8 @@ namespace cv
 
 #define CV_32SC12 CV_MAKETYPE( CV_32S, 12 )
 #define CV_32SC24 CV_MAKETYPE( CV_32S, 24 )
+
+typedef Vec< uchar, 12 > Vec12b;
 
 typedef Vec< short, 12 > Vec12s;
 typedef Vec< short, 16 > Vec16s;
