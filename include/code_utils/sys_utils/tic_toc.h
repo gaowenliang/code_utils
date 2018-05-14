@@ -8,6 +8,9 @@
 namespace sys_utils
 {
 
+namespace tic
+{
+
 class TicToc
 {
     public:
@@ -58,5 +61,6 @@ class TicTocPart
     private:
     std::chrono::time_point< std::chrono::system_clock > start, end, tmp;
 };
+}
 }
 #endif // TicToc_H
