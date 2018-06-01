@@ -18,6 +18,8 @@ namespace cv
 #define CV_32SC12 CV_MAKETYPE( CV_32S, 12 )
 #define CV_32SC24 CV_MAKETYPE( CV_32S, 24 )
 
+#define CV_32FC5 CV_MAKETYPE( CV_32F, 5 )
+
 typedef Vec< uchar, 12 > Vec12b;
 
 typedef Vec< short, 12 > Vec12s;
@@ -37,6 +39,8 @@ typedef Vec< int, 12 > Vec12i;
 typedef Vec< int, 16 > Vec16i;
 typedef Vec< int, 24 > Vec24i;
 typedef Vec< int, 32 > Vec32i;
+
+typedef Vec< float, 5 > Vec5f;
 }
 
 #endif // CV_TYPE_HPP

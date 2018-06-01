@@ -55,6 +55,10 @@ main( )
     sys_utils::io::parseMatrixFromBinary( "/home/gao/img_data2", img22 );
     std::cout << img22 << "\n\n";
 
+    cv::Mat img33;
+    sys_utils::io::parseMatrixFromBinary( "/home/gao/data_SAGAST12d_down", img33 );
+    std::cout << img33 << "\n\n";
+
     waitKey( 0 );
 
     return 0;
