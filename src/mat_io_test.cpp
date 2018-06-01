@@ -40,8 +40,8 @@ main( )
     sys_utils::io::parseMatrixFromBinary( "/home/gao/img_data", img11 );
     showImg( "img_data", img11 );
 
-    cv::Mat img2( 2, 2, CV_8UC12 );
-    for ( int i = 0; i < 12; ++i )
+    cv::Mat img2( 2, 2, CV_8UC3 );
+    for ( int i = 0; i < 3; ++i )
     {
         img2.at< cv::Vec12b >( 0, 0 )[i] = uchar( 1 );
         img2.at< cv::Vec12b >( 0, 1 )[i] = uchar( 2 );
@@ -51,13 +51,42 @@ main( )
     std::cout << img2 << "\n\n";
     sys_utils::io::writeMatrixToBinary( "/home/gao/img_data2", img2 );
 
+    cv::Mat img3( 2, 2, CV_32FC3 );
+    for ( int i = 0; i < 3; ++i )
+    {
+        img3.at< cv::Vec3f >( 0, 0 )[i] = float( 1.1 );
+        img3.at< cv::Vec3f >( 0, 1 )[i] = float( 2.2 );
+        img3.at< cv::Vec3f >( 1, 0 )[i] = float( 3.3 );
+        img3.at< cv::Vec3f >( 1, 1 )[i] = float( 4.4 );
+    }
+    std::cout << img3 << "\n\n";
+    sys_utils::io::writeMatrixToBinary( "/home/gao/img_data3", img3 );
+
+    cv::Mat img4( 2, 2, CV_64FC3 );
+    for ( int i = 0; i < 3; ++i )
+    {
+        img4.at< cv::Vec3d >( 0, 0 )[i] = float( 1.11 );
+        img4.at< cv::Vec3d >( 0, 1 )[i] = float( 2.22 );
+        img4.at< cv::Vec3d >( 1, 0 )[i] = float( 3.33 );
+        img4.at< cv::Vec3d >( 1, 1 )[i] = float( 4.44 );
+    }
+    std::cout << img4 << "\n\n";
+    sys_utils::io::writeMatrixToBinary( "/home/gao/img_data4", img4 );
+
+    std::cout << "===================================="
+              << "\n\n";
+
     cv::Mat img22;
     sys_utils::io::parseMatrixFromBinary( "/home/gao/img_data2", img22 );
     std::cout << img22 << "\n\n";
 
     cv::Mat img33;
-    sys_utils::io::parseMatrixFromBinary( "/home/gao/data_SAGAST12d_down", img33 );
+    sys_utils::io::parseMatrixFromBinary( "/home/gao/img_data3", img33 );
     std::cout << img33 << "\n\n";
+
+    cv::Mat img44;
+    sys_utils::io::parseMatrixFromBinary( "/home/gao/img_data4", img44 );
+    std::cout << img44 << "\n\n";
 
     waitKey( 0 );
 

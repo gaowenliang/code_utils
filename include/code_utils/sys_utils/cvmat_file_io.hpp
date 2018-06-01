@@ -14,9 +14,9 @@ namespace io
 
 //                 | C1  C2   C3	C4
 // CV_8U  | uchar  | 0   8    16	24 |  -0 %8
-// CV_8S  | short  | 1   9    17	25 |  -1 %8
+// CV_8S  | char   | 1   9    17	25 |  -1 %8
 // CV_16U |        | 2   10   18	26 |  -2 %8
-// CV_16S |        | 3   11   19	27 |  -3 %8
+// CV_16S | short  | 3   11   19	27 |  -3 %8
 // CV_32S | int    | 4   12   20	28 |  -4 %8
 // CV_32F | float  | 5   13   21	29 |  -5 %8
 // CV_64F | double | 6   14   22	30 |  -6 %8
@@ -32,21 +32,12 @@ writeMatrixToBinary( const std::string filename, const cv::Mat& matrix )
     out.write( ( char* )( &step ), sizeof( int ) );
     out.write( ( char* )( &type ), sizeof( int ) );
 
-    std::cout << " rows " << rows << "\n";
-    std::cout << " cols " << cols << "\n";
-    std::cout << " step " << step << "\n";
-    std::cout << " type " << type << "\n";
+    // std::cout << " rows " << rows << "\n";
+    // std::cout << " cols " << cols << "\n";
+    // std::cout << " step " << step << "\n";
+    // std::cout << " type " << type << "\n";
 
-    if ( ( type - 0 ) % 8 == 0 )
-        out.write( ( char* )matrix.data, rows * step * sizeof( uchar ) );
-    else if ( ( type - 1 ) % 8 == 0 )
-        out.write( ( char* )matrix.data, rows * step * sizeof( short ) );
-    else if ( ( type - 4 ) % 8 == 0 )
-        out.write( ( char* )matrix.data, rows * step * sizeof( int ) );
-    else if ( ( type - 5 ) % 8 == 0 )
-        out.write( ( char* )matrix.data, rows * step * sizeof( float ) );
-    else if ( ( type - 6 ) % 8 == 0 )
-        out.write( ( char* )matrix.data, rows * step * sizeof( double ) );
+    out.write( ( char* )matrix.data, rows * step * sizeof( uchar ) );
 
     out.close( );
 }
@@ -64,23 +55,14 @@ parseMatrixFromBinary( const std::string filename, cv::Mat& matrix )
         in.read( ( char* )( &step ), sizeof( int ) );
         in.read( ( char* )( &type ), sizeof( int ) );
 
-        std::cout << " rows " << rows << "\n";
-        std::cout << " cols " << cols << "\n";
-        std::cout << " step " << step << "\n";
-        std::cout << " type " << type << "\n";
+        // std::cout << " rows " << rows << "\n";
+        // std::cout << " cols " << cols << "\n";
+        // std::cout << " step " << step << "\n";
+        // std::cout << " type " << type << "\n";
 
         matrix = cv::Mat( rows, cols, type );
 
-        if ( ( type - 0 ) % 8 == 0 )
-            in.read( ( char* )matrix.data, rows * step * sizeof( uchar ) );
-        else if ( ( type - 1 ) % 8 == 0 )
-            in.read( ( char* )matrix.data, rows * step * sizeof( short ) );
-        else if ( ( type - 4 ) % 8 == 0 )
-            in.read( ( char* )matrix.data, rows * step * sizeof( int ) );
-        else if ( ( type - 5 ) % 8 == 0 )
-            in.read( ( char* )matrix.data, rows * step * sizeof( float ) );
-        else if ( ( type - 6 ) % 8 == 0 )
-            in.read( ( char* )matrix.data, rows * step * sizeof( double ) );
+        in.read( ( char* )matrix.data, rows * step * sizeof( uchar ) );
     }
 
     in.close( );
