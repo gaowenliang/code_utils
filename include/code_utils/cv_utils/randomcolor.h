@@ -6,10 +6,10 @@
 namespace cv
 {
 
-class RandomColor
+class RandomColor3
 {
     public:
-    RandomColor( ) { randColor( ); }
+    RandomColor3( ) { randColor( ); }
 
     void randColor( )
     {
@@ -23,6 +23,18 @@ class RandomColor
     int color0;
     int color1;
     int color2;
+};
+
+class RandomColor1
+{
+    public:
+    RandomColor1( ) { randColor( ); }
+
+    void randColor( ) { color0 = rand( ) % 256; }
+    cv::Scalar getColor( ) { return cv::Scalar( color0 ); }
+
+    private:
+    int color0;
 };
 }
 
