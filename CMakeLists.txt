@@ -3,7 +3,7 @@ project(code_utils)
 
 set(CMAKE_BUILD_TYPE "Release")
 set(CMAKE_CXX_FLAGS "-std=c++11")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3 -Wall -g -fPIC")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3 -Wall -g -fPIC -fopenmp")
 
 find_package(catkin REQUIRED
     roscpp
@@ -46,3 +46,6 @@ target_link_libraries(cv_utils ${Boost_LIBRARIES}  ${OpenCV_LIBS} )
 
 add_executable(matIO_test   src/mat_io_test.cpp )
 target_link_libraries(matIO_test dw ${OpenCV_LIBS})
+
+add_executable(sumpixel_test   src/sumpixel_test.cpp )
+target_link_libraries(sumpixel_test dw ${OpenCV_LIBS})
