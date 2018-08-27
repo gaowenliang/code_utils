@@ -21,9 +21,21 @@ AppSync2Images;
 
 typedef message_filters::sync_policies::ApproximateTime< sensor_msgs::Image, //
                                                          sensor_msgs::Image,
+                                                         sensor_msgs::Image >
+AppSync3Images;
+
+typedef message_filters::sync_policies::ApproximateTime< sensor_msgs::Image, //
+                                                         sensor_msgs::Image,
                                                          sensor_msgs::Image,
                                                          sensor_msgs::Image >
 AppSync4Images;
+
+typedef message_filters::sync_policies::ApproximateTime< sensor_msgs::Image, //
+                                                         sensor_msgs::Image,
+                                                         sensor_msgs::Image,
+                                                         sensor_msgs::Image,
+                                                         sensor_msgs::Image >
+AppSync5Images;
 
 typedef message_filters::sync_policies::ApproximateTime< sensor_msgs::Image, //
                                                          sensor_msgs::Image,
@@ -33,9 +45,22 @@ typedef message_filters::sync_policies::ApproximateTime< sensor_msgs::Image, //
                                                          sensor_msgs::Image >
 AppSync6Images;
 
+typedef message_filters::sync_policies::ApproximateTime< sensor_msgs::Image, //
+                                                         sensor_msgs::Image,
+                                                         sensor_msgs::Image,
+                                                         sensor_msgs::Image,
+                                                         sensor_msgs::Image,
+                                                         sensor_msgs::Image,
+                                                         sensor_msgs::Image,
+                                                         sensor_msgs::Image >
+AppSync8Images;
+
 typedef message_filters::Synchronizer< AppSync2Images > App2ImgSynchronizer;
+typedef message_filters::Synchronizer< AppSync3Images > App3ImgSynchronizer;
 typedef message_filters::Synchronizer< AppSync4Images > App4ImgSynchronizer;
+typedef message_filters::Synchronizer< AppSync5Images > App5ImgSynchronizer;
 typedef message_filters::Synchronizer< AppSync6Images > App6ImgSynchronizer;
+typedef message_filters::Synchronizer< AppSync8Images > App8ImgSynchronizer;
 
 template< typename T >
 T
