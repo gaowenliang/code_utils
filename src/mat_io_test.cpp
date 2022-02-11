@@ -30,7 +30,7 @@ main( )
 
     //    Mat img1 = imread( "/home/gao/ws/devel/lib/camera_model/image_down/IMG_35.png",
     //    CV_LOAD_IMAGE_GRAYSCALE );
-    Mat img1 = imread( "/home/gao/IMG_1.png", CV_LOAD_IMAGE_UNCHANGED );
+    Mat img1 = imread( "/home/gao/IMG_1.png", cv::IMREAD_UNCHANGED );
 
     cv::resize( img1, img, cv::Size( 640, 512 ) );
 
